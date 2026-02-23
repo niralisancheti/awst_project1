@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaShoppingCart, FaUsers, FaSync, FaCheckCircle, FaPlus, FaTrash, FaFilter, FaStar } from 'react-icons/fa';
+import { FaShoppingCart, FaUsers, FaSync, FaCheckCircle, FaPlus, FaTrash, FaFilter, FaStar, FaArrowRight } from 'react-icons/fa';
 
 const Home = () => {
   const [items, setItems] = useState(() => {
@@ -77,55 +77,50 @@ const Home = () => {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="hero relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/10"></div>
-        <div className="absolute top-20 left-10 w-20 h-20 bg-secondary/20 rounded-full blur-xl"></div>
-        <div className="absolute bottom-20 right-10 w-32 h-32 bg-accent/20 rounded-full blur-xl"></div>
-        <div className="container relative">
+      <section className="hero">
+        <div className="container">
           <div className="hero-content">
             <div className="flex items-center justify-center mb-6">
-              <FaShoppingCart className="text-secondary text-5xl mr-4 animate-bounce" />
-              <h1 className="text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              <FaShoppingCart className="text-secondary text-5xl mr-4 animate-float" />
+              <h1 className="text-5xl font-bold text-primary">
                 Apartment Grocery Sync
               </h1>
             </div>
             <p className="text-xl max-w-3xl mx-auto leading-relaxed text-secondary">
               Simplify grocery shopping for your apartment community. Sync lists, share responsibilities, and never run out of essentials again.
             </p>
-            <div className="flex items-center justify-center mt-8 space-x-6">
-              <div className="flex items-center space-x-2">
-                <FaUsers className="text-accent text-2xl" />
+            <div className="flex items-center justify-center mt-8 space-x-8">
+              <div className="flex items-center space-x-2 bg-white/50 px-4 py-2 rounded-full shadow-sm">
+                <FaUsers className="text-accent text-xl" />
                 <span className="text-accent font-semibold">Collaborative</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <FaSync className="text-secondary text-2xl" />
+              <div className="flex items-center space-x-2 bg-white/50 px-4 py-2 rounded-full shadow-sm">
+                <FaSync className="text-secondary text-xl" />
                 <span className="text-secondary font-semibold">Real-time</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <FaCheckCircle className="text-primary text-2xl" />
+              <div className="flex items-center space-x-2 bg-white/50 px-4 py-2 rounded-full shadow-sm">
+                <FaCheckCircle className="text-primary text-xl" />
                 <span className="text-primary font-semibold">Efficient</span>
               </div>
             </div>
-            <a href="#demo" className="btn btn-primary mt-8 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+            <a href="#demo" className="btn btn-primary mt-10 inline-flex items-center gap-2">
               Try Our Interactive Demo
+              <FaArrowRight />
             </a>
           </div>
         </div>
       </section>
 
-      {/* Demo Section */}
-      <section id="demo" className="demo-section py-20">
+      <section id="demo" className="demo-section">
         <div className="container">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-primary mb-4">Experience the Power of Sync</h2>
             <p className="text-lg text-secondary max-w-2xl mx-auto">
               Our advanced grocery management system with categories, priorities, and real-time collaboration.
             </p>
           </div>
-          <div className="demo-container max-w-5xl mx-auto">
-            {/* Stats Bar */}
-            <div className="stats-bar mb-8">
+          <div className="demo-container">
+            <div className="stats-bar">
               <div className="stat-item">
                 <span className="stat-number">{pendingCount}</span>
                 <span className="stat-label">Pending</span>
@@ -140,20 +135,18 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Add Item Button */}
             <div className="text-center mb-8">
               <button
                 onClick={() => setShowForm(!showForm)}
-                className="btn btn-secondary flex items-center mx-auto transform hover:scale-105 transition-all duration-300"
+                className="btn btn-secondary inline-flex items-center gap-2"
               >
-                <FaPlus className="mr-2" />
+                <FaPlus />
                 {showForm ? 'Hide Form' : 'Add New Item'}
               </button>
             </div>
 
-            {/* Add Item Form */}
             {showForm && (
-              <div className="demo-form mb-8 animate-slide-down">
+              <div className="demo-form animate-slide-down">
                 <div className="form-row">
                   <input
                     type="text"
@@ -199,7 +192,6 @@ const Home = () => {
               </div>
             )}
 
-            {/* Search and Filters */}
             <div className="filters-section mb-8">
               <div className="search-bar">
                 <input
@@ -222,13 +214,13 @@ const Home = () => {
                   onClick={() => setFilter('pending')}
                   className={`filter-btn ${filter === 'pending' ? 'active' : ''}`}
                 >
-                  <FaShoppingCart /> Pending ({pendingCount})
+                  Pending ({pendingCount})
                 </button>
                 <button
                   onClick={() => setFilter('bought')}
                   className={`filter-btn ${filter === 'bought' ? 'active' : ''}`}
                 >
-                  <FaCheckCircle /> Bought ({boughtCount})
+                  Bought ({boughtCount})
                 </button>
                 {categories.slice(0, 4).map(cat => {
                   const count = items.filter(item => item.category === cat).length;
@@ -245,12 +237,11 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Grocery List */}
             <ul className="grocery-list">
               {filteredItems.map((item, index) => (
                 <li
                   key={item.id}
-                  className={`grocery-item ${item.bought ? 'bought' : ''} animate-slide-in`}
+                  className={`grocery-item ${item.bought ? 'bought' : ''}`}
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   <div className="item-info">
@@ -259,7 +250,7 @@ const Home = () => {
                       {getPriorityIcon(item.priority)}
                     </div>
                     <span className="item-details">
-                      {item.category} • Qty: {item.quantity}
+                      {item.category} &bull; Qty: {item.quantity}
                     </span>
                   </div>
                   <div className="item-actions">
@@ -293,8 +284,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Features Overview */}
-      <section className="features-overview py-20 bg-gradient-to-r from-light to-white">
+      <section className="features-overview">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-primary mb-4">Why Choose Us?</h2>
@@ -302,21 +292,21 @@ const Home = () => {
           </div>
           <div className="features-grid">
             <div className="feature-card group">
-              <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-secondary to-accent rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <FaUsers className="text-white text-2xl" />
               </div>
               <h3 className="text-xl font-semibold text-primary mb-3">Shared Lists</h3>
               <p className="text-secondary leading-relaxed">Create and share grocery lists with your roommates or neighbors effortlessly.</p>
             </div>
             <div className="feature-card group">
-              <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-accent to-primary rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <FaSync className="text-white text-2xl" />
               </div>
               <h3 className="text-xl font-semibold text-primary mb-3">Real-time Sync</h3>
               <p className="text-secondary leading-relaxed">Updates happen instantly, keeping everyone on the same page.</p>
             </div>
             <div className="feature-card group">
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <FaCheckCircle className="text-white text-2xl" />
               </div>
               <h3 className="text-xl font-semibold text-primary mb-3">Smart Management</h3>
