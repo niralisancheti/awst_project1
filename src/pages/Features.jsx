@@ -1,4 +1,4 @@
-import { FaList, FaUsers, FaBox, FaBell, FaUtensils, FaMoneyBillWave, FaSync, FaLock, FaMobile, FaRocket, FaShieldAlt, FaChartLine } from 'react-icons/fa';
+import { FaList, FaUsers, FaBox, FaBell, FaUtensils, FaMoneyBillWave, FaSync, FaLock, FaMobile, FaRocket, FaShieldAlt, FaChartLine, FaCheckCircle } from 'react-icons/fa';
 
 const Features = () => {
   const features = [
@@ -12,50 +12,57 @@ const Features = () => {
       icon: <FaUsers />,
       title: 'Task Assignment',
       description: 'Assign shopping tasks to specific people and track completion easily.',
-      color: '#284b63'
+      color: '#4d8747'
     },
     {
       icon: <FaBox />,
       title: 'Inventory Tracking',
       description: 'Keep track of what\'s in your pantry and what needs to be restocked.',
-      color: '#8b5cf6'
+      color: '#353535'
     },
     {
       icon: <FaBell />,
       title: 'Smart Notifications',
       description: 'Get reminders when items are running low or when lists are updated.',
-      color: '#f59e0b'
+      color: '#d97706'
     },
     {
       icon: <FaUtensils />,
       title: 'Recipe Integration',
       description: 'Add ingredients from recipes directly to your grocery list.',
-      color: '#ef4444'
+      color: '#dc2626'
     },
     {
       icon: <FaMoneyBillWave />,
       title: 'Budget Tracking',
       description: 'Monitor spending and stay within your apartment\'s grocery budget.',
-      color: '#10b981'
+      color: '#4d8747'
     },
     {
       icon: <FaSync />,
       title: 'Real-time Sync',
       description: 'Updates happen instantly across all devices, keeping everyone in sync.',
-      color: '#6366f1'
+      color: '#3c6e71'
     },
     {
       icon: <FaLock />,
       title: 'Secure Sharing',
       description: 'Private groups ensure your grocery lists are only shared with intended people.',
-      color: '#64748b'
+      color: '#6b7280'
     },
     {
       icon: <FaMobile />,
       title: 'Mobile Optimized',
       description: 'Perfect experience on phones, tablets, and desktops for shopping on the go.',
-      color: '#ec4899'
+      color: '#7c3aed'
     }
+  ];
+
+  const benefits = [
+    { icon: <FaCheckCircle />, text: 'Never miss an item again' },
+    { icon: <FaCheckCircle />, text: 'Eliminate duplicate purchases' },
+    { icon: <FaCheckCircle />, text: 'Save time on coordination' },
+    { icon: <FaCheckCircle />, text: 'Reduce food waste' },
   ];
 
   return (
@@ -63,24 +70,21 @@ const Features = () => {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <div className="flex items-center justify-center mb-4">
-              <FaRocket className="text-secondary text-4xl mr-3" />
-              <h1 className="text-5xl font-bold text-primary">
-                Powerful Features
-              </h1>
-            </div>
-            <p className="text-xl max-w-2xl mx-auto leading-relaxed">
+            <span className="hero-badge">Features</span>
+            <h1 className="hero-title">
+              Powerful Features for<br />
+              <span className="hero-title-accent">Better Grocery Management</span>
+            </h1>
+            <p className="hero-subtitle">
               Discover what makes Apartment Grocery Sync the perfect tool for managing your apartment's groceries efficiently and collaboratively.
             </p>
-            <div className="flex items-center justify-center mt-6 space-x-6">
-              <div className="flex items-center space-x-2">
-                <FaShieldAlt className="text-accent text-xl" />
-                <span className="text-accent font-medium">Secure & Reliable</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FaChartLine className="text-secondary text-xl" />
-                <span className="text-secondary font-medium">Data-Driven</span>
-              </div>
+            <div className="hero-benefits">
+              {benefits.map((benefit, index) => (
+                <div key={index} className="hero-benefit">
+                  {benefit.icon}
+                  <span>{benefit.text}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -88,85 +92,105 @@ const Features = () => {
 
       <section className="features-section">
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-primary mb-4">Everything You Need</h2>
-            <p className="text-lg text-secondary max-w-2xl mx-auto">
+          <div className="section-header">
+            <span className="section-tag">Everything You Need</span>
+            <h2 className="section-title">Comprehensive Feature Set</h2>
+            <p className="section-subtitle">
               Our comprehensive feature set ensures you never miss an item or duplicate purchases again.
             </p>
           </div>
-          <div className="features-grid">
+          <div className="features-grid-3col">
             {features.map((feature, index) => (
-              <div
-                key={index}
-                className="feature-card group"
+              <div 
+                key={index} 
+                className="feature-card-landing"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div 
-                  className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300"
-                  style={{ backgroundColor: `${feature.color}20`, color: feature.color }}
+                  className="feature-icon-landing"
+                  style={{ backgroundColor: `${feature.color}15`, color: feature.color }}
                 >
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-primary mb-3">{feature.title}</h3>
-                <p className="text-secondary leading-relaxed">{feature.description}</p>
-                <div 
-                  className="mt-4 h-1 rounded-full transition-all duration-500 group-hover:w-full"
-                  style={{ backgroundColor: feature.color, width: '30%' }}
-                ></div>
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-r from-light to-white">
+      <section className="features-showcase">
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-primary mb-4">See It In Action</h2>
-            <p className="text-lg text-secondary">Experience the power of collaborative grocery management</p>
-          </div>
-          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-8">
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-secondary to-accent rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <FaUsers className="text-white text-2xl" />
+          <div className="showcase-grid">
+            <div className="showcase-content">
+              <span className="section-tag">How It Works</span>
+              <h2 className="section-title">See It In Action</h2>
+              <p className="showcase-text">
+                Experience the power of collaborative grocery management. Watch as your roommates add items, 
+                mark purchases, and stay in sync in real-time.
+              </p>
+              <div className="showcase-steps">
+                <div className="showcase-step">
+                  <div className="step-number">1</div>
+                  <div>
+                    <h4>Create Your List</h4>
+                    <p>Add items you need with categories and priorities</p>
+                  </div>
                 </div>
-                <h3 className="font-semibold text-primary mb-2">Roommate A</h3>
-                <p className="text-sm text-secondary">Adds milk to the list</p>
+                <div className="showcase-step">
+                  <div className="step-number">2</div>
+                  <div>
+                    <h4>Share with Roommates</h4>
+                    <p>Invite your apartment to collaborate</p>
+                  </div>
+                </div>
+                <div className="showcase-step">
+                  <div className="step-number">3</div>
+                  <div>
+                    <h4>Shop Together</h4>
+                    <p>Track purchases in real-time</p>
+                  </div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-accent to-primary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <FaSync className="text-white text-2xl animate-spin" style={{ animationDuration: '3s' }} />
+            </div>
+            <div className="showcase-visual">
+              <div className="demo-card">
+                <div className="demo-card-header">
+                  <FaRocket className="text-secondary" />
+                  <span>Live Demo Preview</span>
                 </div>
-                <h3 className="font-semibold text-primary mb-2">Real-time Sync</h3>
-                <p className="text-sm text-secondary">Instant updates</p>
-              </div>
-              <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <FaBell className="text-white text-2xl" />
+                <div className="demo-card-content">
+                  <div className="demo-item">
+                    <FaCheckCircle className="text-accent" />
+                    <span>Organic Milk</span>
+                    <span className="text-secondary text-sm">Dairy</span>
+                  </div>
+                  <div className="demo-item bought">
+                    <FaCheckCircle className="text-secondary" />
+                    <span>Whole Wheat Bread</span>
+                    <span className="text-secondary text-sm">Bakery</span>
+                  </div>
+                  <div className="demo-item">
+                    <FaCheckCircle className="text-accent" />
+                    <span>Free Range Eggs</span>
+                    <span className="text-secondary text-sm">Dairy</span>
+                  </div>
                 </div>
-                <h3 className="font-semibold text-primary mb-2">Roommate B</h3>
-                <p className="text-sm text-secondary">Gets notified immediately</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="cta-section">
+      <section className="cta-section-landing">
         <div className="container">
-          <div className="text-center">
-            <h2 className="text-4xl font-bold text-white mb-6">Ready to Simplify Your Grocery Shopping?</h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Join thousands of apartments already using Apartment Grocery Sync to streamline their grocery management.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a href="/contact" className="btn bg-white text-primary hover:bg-light transform hover:scale-105 transition-all duration-300">
-                Start Your Free Trial
-              </a>
-              <a href="#demo" onClick={(e) => { e.preventDefault(); document.querySelector('#demo')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn border-2 border-white text-white hover:bg-white hover:text-primary transition-all duration-300">
-                Try Demo
-              </a>
+          <div className="cta-content">
+            <h2>Ready to Simplify Your Grocery Shopping?</h2>
+            <p>Join thousands of apartments already using Apartment Grocery Sync to streamline their grocery management.</p>
+            <div className="cta-buttons">
+              <a href="/" className="btn btn-primary btn-lg">Try the Demo</a>
+              <a href="/contact" className="btn btn-outline-white btn-lg">Get Started</a>
             </div>
           </div>
         </div>

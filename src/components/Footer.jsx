@@ -1,5 +1,11 @@
 import { Link } from 'react-router-dom';
-import { FaShoppingCart, FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaShoppingCart, FaFacebook, FaInstagram, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+
+const XIcon = () => (
+  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
 
 const Footer = () => {
   return (
@@ -8,15 +14,17 @@ const Footer = () => {
         <div className="footer-content">
           <div className="footer-section">
             <div className="footer-logo">
-              <FaShoppingCart className="logo-icon" />
-              <h4>Apartment Grocery Sync</h4>
+              <Link to="/" className="footer-logo-link">
+                <FaShoppingCart className="logo-icon" />
+                <h4>Apartment Grocery Sync</h4>
+              </Link>
             </div>
             <p>Simplifying grocery management for apartment communities. Sync lists, share responsibilities, and never run out of essentials again.</p>
             <div className="social-links">
-              <a href="#" className="social-link"><FaFacebook /></a>
-              <a href="#" className="social-link"><FaTwitter /></a>
-              <a href="#" className="social-link"><FaInstagram /></a>
-              <a href="#" className="social-link"><FaLinkedin /></a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-link" title="Facebook"><FaFacebook /></a>
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="social-link" title="X"><XIcon /></a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-link" title="Instagram"><FaInstagram /></a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-link" title="LinkedIn"><FaLinkedin /></a>
             </div>
           </div>
           <div className="footer-section">
@@ -31,17 +39,17 @@ const Footer = () => {
           </div>
           <div className="footer-section">
             <h4>Contact Info</h4>
-            <div className="contact-item">
+            <a href="mailto:info@apartmentgrocerysync.com" className="contact-item contact-link">
               <FaEnvelope className="contact-icon" />
               <span>info@apartmentgrocerysync.com</span>
-            </div>
-            <div className="contact-item">
+            </a>
+            <a href="tel:+919999999999" className="contact-item contact-link">
               <FaPhone className="contact-icon" />
-              <span>(123) 456-7890</span>
-            </div>
+              <span>+91 99999 99999</span>
+            </a>
             <div className="contact-item">
               <FaMapMarkerAlt className="contact-icon" />
-              <span>123 Grocery Lane, Apartment City</span>
+              <span>Bengaluru, Karnataka, India</span>
             </div>
           </div>
         </div>
