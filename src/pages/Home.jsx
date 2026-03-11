@@ -421,47 +421,97 @@ const Home = () => {
               See for yourself how easy apartment grocery management can be.
             </p>
           </div>
-          <div className="demo-container-landing">
-            <div className="demo-stats-bar">
-              <div className="demo-stat-item">
-                <span className="demo-stat-number">{pendingCount}</span>
-                <span className="demo-stat-label">Pending</span>
-              </div>
-              <div className="demo-stat-item">
-                <span className="demo-stat-number">{boughtCount}</span>
-                <span className="demo-stat-label">Completed</span>
-              </div>
-              <div className="demo-stat-item">
-                <span className="demo-stat-number">{items.length}</span>
-                <span className="demo-stat-label">Total Items</span>
-              </div>
-            </div>
 
-            <div className="text-center mb-6">
-              <button
-                onClick={() => setShowForm(!showForm)}
-                className="btn btn-secondary inline-flex items-center gap-2"
-              >
-                <FaPlus />
-                {showForm ? 'Hide Form' : 'Add New Item'}
-              </button>
-            </div>
+          <div className="demo-app">
+            {/* Sidebar */}
+            <aside className="demo-sidebar">
+              <div className="demo-sidebar-header">
+                <FaShoppingCart className="demo-sidebar-icon" />
+                <span>Grocery List</span>
+              </div>
+              <nav className="demo-sidebar-nav">
+                <button
+                  onClick={() => setFilter('all')}
+                  className={`demo-nav-item ${filter === 'all' ? 'active' : ''}`}
+                >
+                  <span className="demo-nav-label">All Items</span>
+                  <span className="demo-nav-count">{items.length}</span>
+                </button>
+                <button
+                  onClick={() => setFilter('pending')}
+                  className={`demo-nav-item ${filter === 'pending' ? 'active' : ''}`}
+                >
+                  <span className="demo-nav-dot pending"></span>
+                  <span className="demo-nav-label">Pending</span>
+                  <span className="demo-nav-count">{pendingCount}</span>
+                </button>
+                <button
+                  onClick={() => setFilter('bought')}
+                  className={`demo-nav-item ${filter === 'bought' ? 'active' : ''}`}
+                >
+                  <span className="demo-nav-dot completed"></span>
+                  <span className="demo-nav-label">Completed</span>
+                  <span className="demo-nav-count">{boughtCount}</span>
+                </button>
+              </nav>
+              <div className="demo-sidebar-divider"></div>
+              <p className="demo-sidebar-section-label">Categories</p>
+              <nav className="demo-sidebar-nav">
+                {categories.slice(0, 5).map(cat => {
+                  const count = items.filter(item => item.category === cat).length;
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => setFilter(cat)}
+                      className={`demo-nav-item ${filter === cat ? 'active' : ''}`}
+                    >
+                      <span className="demo-nav-label">{cat}</span>
+                      <span className="demo-nav-count">{count}</span>
+                    </button>
+                  );
+                })}
+              </nav>
+            </aside>
 
-            {showForm && (
-              <div className="demo-form-landing animate-slide-down">
-                <div className="form-row-landing">
+            {/* Main Content */}
+            <div className="demo-main">
+              {/* Toolbar */}
+              <div className="demo-toolbar">
+                <div className="demo-search-wrap">
+                  <FaFilter className="demo-search-icon" />
+                  <input
+                    type="text"
+                    placeholder="Search items..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="demo-search-input"
+                  />
+                </div>
+                <button
+                  onClick={() => setShowForm(!showForm)}
+                  className="demo-add-btn"
+                >
+                  <FaPlus />
+                  <span>Add Item</span>
+                </button>
+              </div>
+
+              {/* Add Form */}
+              {showForm && (
+                <div className="demo-add-form">
                   <input
                     type="text"
                     placeholder="Item name..."
                     value={newItem}
                     onChange={(e) => setNewItem(e.target.value)}
-                    className="form-input-landing"
+                    className="demo-input"
                     onKeyPress={(e) => e.key === 'Enter' && addItem()}
+                    autoFocus
                   />
                   <select
                     value={newCategory}
                     onChange={(e) => setNewCategory(e.target.value)}
-                    className="form-select-landing"
+                    className="demo-select"
                   >
                     {categories.map(cat => (
                       <option key={cat} value={cat}>{cat}</option>
@@ -472,160 +522,119 @@ const Home = () => {
                     min="1"
                     value={newQuantity}
                     onChange={(e) => setNewQuantity(parseInt(e.target.value))}
-                    className="form-input-landing quantity-input-landing"
+                    className="demo-input demo-input-qty"
                     placeholder="Qty"
                   />
                   <select
                     value={newPriority}
                     onChange={(e) => setNewPriority(e.target.value)}
-                    className="form-select-landing"
+                    className="demo-select"
                   >
                     {priorities.map(p => (
                       <option key={p.value} value={p.value}>{p.label}</option>
                     ))}
                   </select>
-                  <button
-                    onClick={addItem}
-                    className="btn btn-primary add-btn-landing"
-                  >
-                    <FaPlus /> Add
+                  <button onClick={addItem} className="demo-form-submit">
+                    Add
                   </button>
                 </div>
-              </div>
-            )}
+              )}
 
-            <div className="filters-section-landing mb-6">
-              <div className="search-bar-landing">
-                <input
-                  type="text"
-                  placeholder="Search items..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="search-input-landing"
-                />
-                <FaFilter className="search-icon-landing" />
+              {/* Item List */}
+              <div className="demo-list-header">
+                <span className="demo-list-title">
+                  {filter === 'all' ? 'All Items' : filter === 'pending' ? 'Pending' : filter === 'bought' ? 'Completed' : filter}
+                </span>
+                <span className="demo-list-count">{filteredItems.length} items</span>
               </div>
-              <div className="filter-buttons-landing">
-                <button
-                  onClick={() => setFilter('all')}
-                  className={`filter-btn-landing ${filter === 'all' ? 'active' : ''}`}
-                >
-                  All ({items.length})
-                </button>
-                <button
-                  onClick={() => setFilter('pending')}
-                  className={`filter-btn-landing ${filter === 'pending' ? 'active' : ''}`}
-                >
-                  Pending ({pendingCount})
-                </button>
-                <button
-                  onClick={() => setFilter('bought')}
-                  className={`filter-btn-landing ${filter === 'bought' ? 'active' : ''}`}
-                >
-                  Bought ({boughtCount})
-                </button>
-                {categories.slice(0, 4).map(cat => {
-                  const count = items.filter(item => item.category === cat).length;
-                  return (
-                    <button
-                      key={cat}
-                      onClick={() => setFilter(cat)}
-                      className={`filter-btn-landing ${filter === cat ? 'active' : ''}`}
-                    >
-                      {cat} ({count})
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
 
-            <ul className="grocery-list-landing">
-              {filteredItems.map((item, index) => (
-                <li
-                  key={item.id}
-                  className={`grocery-item-landing ${item.bought ? 'bought' : ''}`}
-                >
-                  {editingId === item.id ? (
-                    <div className="edit-form-landing">
-                      <input
-                        type="text"
-                        value={editName}
-                        onChange={(e) => setEditName(e.target.value)}
-                        className="form-input-landing"
-                        autoFocus
-                      />
-                      <select
-                        value={editCategory}
-                        onChange={(e) => setEditCategory(e.target.value)}
-                        className="form-select-landing"
-                      >
-                        {categories.map(cat => (
-                          <option key={cat} value={cat}>{cat}</option>
-                        ))}
-                      </select>
-                      <input
-                        type="number"
-                        min="1"
-                        value={editQuantity}
-                        onChange={(e) => setEditQuantity(parseInt(e.target.value))}
-                        className="form-input-landing quantity-input-landing"
-                      />
-                      <div className="edit-actions">
-                        <button onClick={saveEdit} className="btn btn-primary btn-sm" title="Save">
+              <ul className="demo-item-list">
+                {filteredItems.map((item) => (
+                  <li
+                    key={item.id}
+                    className={`demo-item ${item.bought ? 'bought' : ''}`}
+                  >
+                    {editingId === item.id ? (
+                      <div className="demo-edit-row">
+                        <input
+                          type="text"
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                          className="demo-input"
+                          autoFocus
+                        />
+                        <select
+                          value={editCategory}
+                          onChange={(e) => setEditCategory(e.target.value)}
+                          className="demo-select"
+                        >
+                          {categories.map(cat => (
+                            <option key={cat} value={cat}>{cat}</option>
+                          ))}
+                        </select>
+                        <input
+                          type="number"
+                          min="1"
+                          value={editQuantity}
+                          onChange={(e) => setEditQuantity(parseInt(e.target.value))}
+                          className="demo-input demo-input-qty"
+                        />
+                        <button onClick={saveEdit} className="demo-edit-save" title="Save">
                           <FaCheckCircle />
                         </button>
-                        <button onClick={cancelEdit} className="btn btn-secondary btn-sm" title="Cancel">
+                        <button onClick={cancelEdit} className="demo-edit-cancel" title="Cancel">
                           <FaTimes />
                         </button>
                       </div>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="item-info-landing">
-                        <div className="flex items-center gap-2">
-                          <span className="item-name-landing">{item.name}</span>
-                          {getPriorityIcon(item.priority)}
-                        </div>
-                        <span className="item-details-landing">
-                          {item.category} • Qty: {item.quantity}
-                        </span>
-                      </div>
-                      <div className="item-actions-landing">
-                        <button
-                          onClick={() => startEdit(item)}
-                          className="edit-btn-landing"
-                          title="Edit item"
-                        >
-                          <FaEdit />
-                        </button>
+                    ) : (
+                      <>
                         <button
                           onClick={() => toggleBought(item.id)}
-                          className={`check-btn-landing${item.bought ? ' checked' : ''}`}
+                          className={`demo-checkbox ${item.bought ? 'checked' : ''}`}
                           title={item.bought ? 'Mark as pending' : 'Mark as bought'}
                         >
-                          <FaCheckCircle />
+                          {item.bought && <FaCheckCircle />}
                         </button>
-                        <button
-                          onClick={() => removeItem(item.id)}
-                          className="delete-btn-landing"
-                          title="Remove item"
-                        >
-                          <FaTrash />
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </li>
-              ))}
-            </ul>
+                        <div className="demo-item-content">
+                          <span className={`demo-item-name ${item.bought ? 'bought' : ''}`}>
+                            {item.name}
+                          </span>
+                          <div className="demo-item-meta">
+                            <span className="demo-item-category">{item.category}</span>
+                            <span className="demo-item-qty">x{item.quantity}</span>
+                            <FaStar className="demo-item-priority" style={{ color: priorities.find(p => p.value === item.priority)?.color }} />
+                          </div>
+                        </div>
+                        <div className="demo-item-actions">
+                          <button
+                            onClick={() => startEdit(item)}
+                            className="demo-action-btn"
+                            title="Edit item"
+                          >
+                            <FaEdit />
+                          </button>
+                          <button
+                            onClick={() => removeItem(item.id)}
+                            className="demo-action-btn demo-action-delete"
+                            title="Remove item"
+                          >
+                            <FaTrash />
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ul>
 
-            {filteredItems.length === 0 && (
-              <div className="empty-state-landing">
-                <FaShoppingCart size={48} className="text-secondary opacity-50" />
-                <h3 className="text-lg font-semibold text-primary mt-3 mb-2">No items found</h3>
-                <p className="text-secondary">Add some items to get started!</p>
-              </div>
-            )}
+              {filteredItems.length === 0 && (
+                <div className="demo-empty">
+                  <FaShoppingCart className="demo-empty-icon" />
+                  <p className="demo-empty-text">No items found</p>
+                  <p className="demo-empty-sub">Add some items to get started</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>

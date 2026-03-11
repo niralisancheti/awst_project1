@@ -20,12 +20,23 @@ html {
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'DM Sans', 'Segoe UI', sans-serif;
   line-height: 1.6;
   color: #353535;
-  background-color: #ffffff;
+  background-color: #fafafa;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Sora', 'Segoe UI', sans-serif;
 }
 
 #root {
   min-height: 100vh;
+}
+
+::selection {
+  background: #3c6e71;
+  color: #fff;
 }
